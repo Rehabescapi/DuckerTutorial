@@ -1,0 +1,5 @@
+.text {
+    composes:center from 'sharedStyles/styles.css';
+    composes: subHeader from 'sharedStyles/styles.css';
+    
+}
