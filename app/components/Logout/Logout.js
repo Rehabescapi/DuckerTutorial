@@ -9,6 +9,6 @@ Logout.propTypess = {
 
 export default function Logout (props) {
   return (
-        <div className={text}> {'You are now logged out'} </div>
-    )
+    <div className={text}> {'You are now logged out'} </div>
+  )
 }

@@ -10,12 +10,12 @@ Authenticate.propTypes = {
 }
 
 export default function Authenticate ({onAuth, isFetching, error}) {
-    const facebookAuthButton = true;
+  const facebookAuthButton = true
   return (
-        <div className={centeredContainer}>
-            <h1 className={largeHeader}> {'Authenticate'} </h1>
-            {facebookAuthButton &&<FacebookAuthButton isFetching={isFetching} onAuth={onAuth} />}
-            {error ? <p className={errorMSg}>{error} </p> : null}
-        </div>
-    )
+    <div className={centeredContainer}>
+      <h1 className={largeHeader}> {'Authenticate'} </h1>
+      {facebookAuthButton && <FacebookAuthButton isFetching={isFetching} onAuth={onAuth} />}
+      {error ? <p className={errorMSg}>{error} </p> : null}
+    </div>
+  )
 }

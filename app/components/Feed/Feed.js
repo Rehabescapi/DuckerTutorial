@@ -6,6 +6,6 @@ Feed.propTypes = {
 }
 export default function Feed (props) {
   return (
-        <div> {'Feed'} </div>
-    )
+    <div> {'Feed'} </div>
+  )
 }

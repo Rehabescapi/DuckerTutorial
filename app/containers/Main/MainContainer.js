@@ -30,15 +30,14 @@ class MainContainer extends Component {
   render () {
     console.log('props', this.props)
     return this.props.isFetching === true
-    ? null
-    :<div className={container}>
+      ? null
+      : <div className={container}>
         <Navigation isAuthed={this.props.isAuthed} />
         <div className={innerContainer}>
           {this.props.children}
         </div>
       </div>
   }
-
 }
 
 MainContainer.propTypes = {
@@ -54,6 +53,6 @@ MainContainer.contextTypes =
 }
 // export default MainContainer
 export default withRouter(connect(
-  ({users}) => ({isAuthed: users.isAuthed, isFetching: users.isFetching}),
+  (state) => ({isAuthed: state.users.isAuthed, isFetching: state.users.isFetching}),
   (dispatch) => bindActionCreators({...userActionCreators}, dispatch)
 )(MainContainer))

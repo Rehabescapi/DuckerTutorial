@@ -1,6 +1,6 @@
 import auth, {logout, saveUser} from 'helpers/auth'
-import {formatUserInfo } from 'helpers/utils'
-import a from 'helpers/utils'
+import { formatUserInfo } from 'helpers/utils'
+
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
 const FETCHING_USER = 'FETCHING_USER'
@@ -41,16 +41,18 @@ export function fetchingUserSuccess (uid, user, timestamp) {
     timestamp,
   }
 }
-export function fetchAndHandleAuthUser () {
+export function fetchAndHandleAuthUser (authType) {
   return function (dispatch) {
     dispatch(fetchingUser())
-    return auth().then(({user, credential}) =>
-    {
+    return auth(authType)
+    .then(({user, credential}) => {
       console.log('user', user)
+      const userData= user.providerData[0]
+      const userInfo =formatUserInfo(userData.displayName, userData.photoURL, user.uid )
       return dispatch(fetchingUserSuccess(user.uid, user, Date.now()))
     })
-    .then((user) => dispatch(authUser(user.uid)))
-    .catch((error) => dispatch(fetchingUserFailure(error)))
+      .then((user) => dispatch(authUser(user.uid)))
+      .catch((error) => dispatch(fetchingUserFailure(error)))
   }
 }
 
@@ -126,19 +128,18 @@ export default function users (state = initialState, action) {
       }
     case FETCHING_USER_SUCCESS:
       return action.user === null
-          ? {
-            ...state,
-            isFetching: false,
-            error: '',
-          }
-          : {
-            ...state,
-            isFetching: false,
-            error: '',
-            [action.uid]: user(state[action.uid], action),
-          }
+        ? {
+          ...state,
+          isFetching: false,
+          error: '',
+        }
+        : {
+          ...state,
+          isFetching: false,
+          error: '',
+          [action.uid]: user(state[action.uid], action),
+        }
     default :
       return state
   }
 }
-

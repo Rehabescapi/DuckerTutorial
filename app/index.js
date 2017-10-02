@@ -19,11 +19,11 @@ function checkAuth (component) {
 }
 const isAuthed = checkIfAuthed(store)
 console.log('is Auth  ' + isAuthed)
-//console.log(nextState.location)
+// console.log(nextState.location)
 
 ReactDOM.render(
-    <Provider store={store}>
-         {getRoutes(checkAuth)}
-    </Provider>,
-    document.getElementById('app')
+  <Provider store={store}>
+    {getRoutes(checkAuth)}
+  </Provider>,
+  document.getElementById('app')
 )

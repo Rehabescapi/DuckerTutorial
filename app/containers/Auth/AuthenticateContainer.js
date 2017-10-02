@@ -21,11 +21,11 @@ class AuthenticateContainer extends React.Component {
 
   render () {
     return (
-            <Authenticate
-            onAuth={this.handleAuth}
-            isFetching={this.props.isFetching}
-            error={this.props.error}/>
-        )
+      <Authenticate
+        onAuth={this.handleAuth}
+        isFetching={this.props.isFetching}
+        error={this.props.error}/>
+    )
   }
 }
 
@@ -37,8 +37,8 @@ function mapStateToProps (state) {
   console.log('STATE')
   console.log(state)
   return {
-    isFetching: state.isFetching,
-    error: state.error,
+    isFetching: state.users.isFetching,
+    error: state.users.error,
   }
 }
 AuthenticateContainer.propTypes = {
@@ -46,6 +46,9 @@ AuthenticateContainer.propTypes = {
   error: PropTypes.string.isRequired,
   fetchAndHandleAuthUser: PropTypes.func.isRequired,
 
+}
+AuthenticateContainer.contextTypes={
+  router:PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthenticateContainer)

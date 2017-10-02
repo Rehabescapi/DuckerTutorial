@@ -10,21 +10,21 @@ Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
 function NavLinks ({isAuthed}) {
   return isAuthed === true
     ? <ul>
-        <li><Link className={link} to='/'>{'Home'}</Link></li>
-      </ul>
+      <li><Link className={link} to='/'>{'Home'}</Link></li>
+    </ul>
     : null
 }
 
 function ActionLinks ({isAuthed}) {
   return isAuthed === true
     ? <ul>
-        <li><ModalContainer /></li>
-        <li><Link to='/logout' className={link}>{'Logout'}</Link></li>
-      </ul>
+      <li><ModalContainer /></li>
+      <li><Link to='/logout' className={link}>{'Logout'}</Link></li>
+    </ul>
     : <ul>
-        <li><Link to='/' className={link}>{'Home'}</Link></li>
-        <li><Link to='/auth' className={link}>{'Authenticate'}</Link></li>
-      </ul>
+      <li><Link to='/' className={link}>{'Home'}</Link></li>
+      <li><Link to='/auth' className={link}>{'Authenticate'}</Link></li>
+    </ul>
 }
 
 export default function Navigation ({isAuthed}) {

@@ -6,6 +6,6 @@ NoMatch.propTypes = {
 }
 export default function NoMatch (props) {
   return (
-        <div> {'404 nerd'} </div>
-    )
+    <div> {'404 nerd'} </div>
+  )
 }
