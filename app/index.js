@@ -1,27 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import getRoutes from 'config/routes'
+import users from 'redux/modules/users'
 import thunk from 'redux-thunk'
-import {createStore, applyMiddleware} from 'redux'
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux'
 import {Provider} from 'react-redux'
-import users from './redux/modules/users'
-import getRoutes from './config/routes'
 import {checkIfAuthed} from 'helpers/auth'
-import PropType from 'prop-types'
-const store = createStore(users, applyMiddleware(thunk))
+import restricted from 'helpers/restricted'
 
-function checkAuth (nextState, replace){
-    const isAuthed = checkIfAuthed(store)
-    const nextPathName = nextState.location.pathname 
-    if(nextPathName ==='/' || nextPathName==='/auth'){
-        if(isAuthed === true){
-            replace('/feed')
-        }
-    }else{
-        if(isAuthed !== true){
-            replace('/auth')
-        }
-    }
+import * as reducers from 'redux/modules'
+// import PropType from 'prop-types'
+const store = createStore(combineReducers(reducers), compose(
+  applyMiddleware(thunk),
+  window.devToolsExtension ? window.devToolsExtension() : (f) => f))
+
+function checkAuth (component) {
+  return restricted(component, store)
 }
+const isAuthed = checkIfAuthed(store)
+console.log('is Auth  ' + isAuthed)
+//console.log(nextState.location)
 
 ReactDOM.render(
     <Provider store={store}>

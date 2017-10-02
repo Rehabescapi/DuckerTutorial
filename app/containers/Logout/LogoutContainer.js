@@ -18,7 +18,6 @@ class LogoutContainer extends Component {
 }
 
 LogoutContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
 }
-export default LogoutContainer
-//export default connect()(LogoutContainer)
+export default connect()(LogoutContainer)

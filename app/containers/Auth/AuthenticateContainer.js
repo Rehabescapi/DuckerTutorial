@@ -1,7 +1,7 @@
 import React from 'react'
 import {Authenticate} from 'components'
-import {PropTypes} from 'prop-types'
-import auth from 'helpers/auth'
+import PropTypes from 'prop-types'
+// import auth from 'helpers/auth'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as userActionCreators from 'redux/modules/users'
@@ -9,15 +9,14 @@ import * as userActionCreators from 'redux/modules/users'
 console.log(userActionCreators)
 class AuthenticateContainer extends React.Component {
   constructor (props) {
-    console.log('WOOOS');
     super(props)
     this.handleAuth = this.handleAuth.bind(this)
   }
 
-  handleAuth (e) {
+  handleAuth (e, authType) {
     e.preventDefault()
-    this.props.fetchAndHandleAuthUser()
-    .then(()=> this.context.router.replace('feed'))
+    this.props.fetchAndHandleAuthUser(authType)
+    .then(() => this.context.router.history.replace('feed'))
   }
 
   render () {
@@ -49,4 +48,4 @@ AuthenticateContainer.propTypes = {
 
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(AuthenticateContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(AuthenticateContainer)
