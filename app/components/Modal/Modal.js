@@ -27,8 +27,6 @@ Modal.propTypes = {
 }
 
 export default function Modal (props) {
-  console.log('props User ' + props.user)
-  console.log(props.user)
   function submitDuck () {
     props.duckFanout(formatDuck(props.duckText, props.user))
   }
