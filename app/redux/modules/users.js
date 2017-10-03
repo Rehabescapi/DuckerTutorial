@@ -1,6 +1,6 @@
 import auth, {logout, saveUser} from 'helpers/auth'
 import { formatUserInfo } from 'helpers/utils'
-
+import {fetchUser} from 'helpers/api'
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
 const FETCHING_USER = 'FETCHING_USER'
@@ -9,7 +9,6 @@ const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS'
 const REMOVE_FETCHING_USER = 'REMOVE_FETCHING_USER'
 
 export function authUser (uid) {
-  console.log(uid)
   return {
     type: AUTH_USER,
     uid,
@@ -23,7 +22,8 @@ function unauthUser () {
   }
 }
 function fetchingUser () {
-  return {type: FETCHING_USER,
+  return {
+    type: FETCHING_USER,
   }
 }
 function fetchingUserFailure (error) {
@@ -41,16 +41,17 @@ export function fetchingUserSuccess (uid, user, timestamp) {
     timestamp,
   }
 }
-export function fetchAndHandleAuthUser (authType) {
+
+export function fetchAndHandleAuthUser () {
   return function (dispatch) {
     dispatch(fetchingUser())
-    return auth(authType)
-    .then(({user, credential}) => {
-      console.log('user', user)
-      const userData= user.providerData[0]
-      const userInfo =formatUserInfo(userData.displayName, userData.photoURL, user.uid )
-      return dispatch(fetchingUserSuccess(user.uid, user, Date.now()))
-    })
+    return auth()
+      .then(({user, credential}) => {
+        const userData = user.providerData[0]
+        const userInfo = formatUserInfo(userData.displayName, userData.photoURL, user.uid)
+        return dispatch(fetchingUserSuccess(user.uid, userInfo, Date.now()))
+      })
+      .then(({user}) => saveUser(user))
       .then((user) => dispatch(authUser(user.uid)))
       .catch((error) => dispatch(fetchingUserFailure(error)))
   }

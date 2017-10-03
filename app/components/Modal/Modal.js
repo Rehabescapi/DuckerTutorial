@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import {default as ReactModal} from 'react-modal'
+import { default as ReactModal} from 'react-modal'
 import { newDuckTop, pointer, newDuckInputContainer, newDuckInput, submitDuckBtn, darkBtn} from './styles.css'
+import { formatDuck } from 'helpers/utils'
+
 const modalStyles = {
   content: {
     width: 350,
@@ -14,7 +15,6 @@ const modalStyles = {
   },
 }
 
-const {object, string, func, bool } = PropTypes
 Modal.propTypes = {
   duckText: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
@@ -23,20 +23,24 @@ Modal.propTypes = {
   openModal: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   updateDuckText: PropTypes.func.isRequired,
+  duckFanout: PropTypes.func.isRequired,
 }
 
 export default function Modal (props) {
+  console.log('props User ' + props.user)
+  console.log(props.user)
   function submitDuck () {
-    console.log('Duck', props.duckText)
-    console.log('User', props.user)
+    props.duckFanout(formatDuck(props.duckText, props.user))
   }
 
   return (
     <span className={darkBtn} onClick={props.openModal}>
-
       {'Duck'}
-      <ReactModal style= {modalStyles} contentLabel='Modal' isOpen = {props.isOpen}
-        onRequestClose={props.closeModal}>
+      <ReactModal
+        style= {modalStyles}
+        isOpen={props.isOpen}
+        onRequestClose={props.closeModal}
+        contentLabel='Modal' >
         <div className={newDuckTop}>
           <span onClick={props.closeModal} className={pointer}> {'X'} </span>
         </div>

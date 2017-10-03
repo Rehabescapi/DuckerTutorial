@@ -128,8 +128,7 @@
   count,
 }
 
-
-//usersDucks
+usersDucks
 {
   type: FETCHING_USERS_DUCKS,
   uid,

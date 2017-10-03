@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { withRouter} from 'react-router'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Navigation } from 'components'
 import { formatUserInfo } from 'helpers/utils'
 import * as userActionCreators from 'redux/modules/users'
 import { container, innerContainer } from './styles.css'
-import { firebaseAuth} from 'config/constants'
+import { firebaseAuth } from 'config/constants'
 
 class MainContainer extends Component {
   componentDidMount () {
@@ -28,7 +28,6 @@ class MainContainer extends Component {
     })
   }
   render () {
-    console.log('props', this.props)
     return this.props.isFetching === true
       ? null
       : <div className={container}>
@@ -44,8 +43,7 @@ MainContainer.propTypes = {
   childred: PropTypes.any,
   isAuthed: PropTypes.bool.isRequired,
   authUser: PropTypes.func.isRequired,
-  fetchingUserSuccess: PropTypes.func.isRequired,
-  removeFetchingUser: PropTypes.func.isRequired,
+
 }
 MainContainer.contextTypes =
 {

@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as userActionCreators from 'redux/modules/users'
 
-console.log(userActionCreators)
 class AuthenticateContainer extends React.Component {
   constructor (props) {
     super(props)
@@ -15,8 +14,8 @@ class AuthenticateContainer extends React.Component {
 
   handleAuth (e, authType) {
     e.preventDefault()
-    this.props.fetchAndHandleAuthUser(authType)
-    .then(() => this.context.router.history.replace('feed'))
+    this.props.fetchAndHandleAuthUser()
+      .then(() => this.context.router.history.replace('feed'))
   }
 
   render () {
@@ -34,8 +33,6 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps (state) {
-  console.log('STATE')
-  console.log(state)
   return {
     isFetching: state.users.isFetching,
     error: state.users.error,
@@ -47,8 +44,8 @@ AuthenticateContainer.propTypes = {
   fetchAndHandleAuthUser: PropTypes.func.isRequired,
 
 }
-AuthenticateContainer.contextTypes={
-  router:PropTypes.object.isRequired
+AuthenticateContainer.contextTypes = {
+  router: PropTypes.object.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthenticateContainer)
