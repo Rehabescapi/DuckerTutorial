@@ -1,4 +1,4 @@
-import { postReply, fetchReplies } from 'helpers/api'
+import { postReply, fetchReplies} from 'helpers/api'
 
 const FETCHING_REPLIES = 'FETCHING_REPLIES'
 const FETCHING_REPLIES_FAILURE = 'FETCHING_REPLIES_FAILURE'

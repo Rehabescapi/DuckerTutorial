@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
-import { DuckContainer } from 'containers'
+import { DuckContainer, RepliesContainer } from 'containers'
 import {
   mainContainer, container, content, repliesContainer,
   replyTextAreaContainer, replyTextArea } from './styles.css'
 
 import { subHeader, darkBtn, errorMsg } from 'sharedStyles/styles.css'
-import { RepliesContainer } from 'containers'
+
 
 import { formatReply} from 'helpers/utils'
 
@@ -31,6 +31,12 @@ function Reply ({submit}) {
       maxLength={140}
       placeholder='Your response'
       type='text'/>
+      <button
+          className={darkBtn}
+          
+          onClick={handleSubmit}>
+          Reply
+        </button>
       </div>
   )
 }
@@ -59,7 +65,7 @@ export default function DuckDetails ({duckId, isFetching, authedUser, error, add
                     <Reply submit={(replyText) => addAndHandleReply(duckId, formatReply(authedUser,replyText))}/>
           </div>
           <div className = {repliesContainer}>
-                    Reply Section
+                 <RepliesContainer duckId={duckId}/>
           </div>
         </div> }
       {error ? <p className={errorMsg}> {error} </p> : null}
