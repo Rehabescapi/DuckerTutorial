@@ -14,7 +14,7 @@ function settingFeedListener () {
   }
 }
 
-function settingFeedListenerError (error) {
+export function settingFeedListenerError (error) {
   console.warn(error)
   return {
     type: SETTING_FEED_LISTENER_ERROR,
@@ -22,14 +22,14 @@ function settingFeedListenerError (error) {
   }
 }
 
-function settingFeedListenerSuccess (duckIds) {
+export function settingFeedListenerSuccess (duckIds) {
   return {
     type: SETTING_FEED_LISTENER_SUCCESS,
     duckIds,
   }
 }
 
-function addNewDuckIdToFeed (duckId) {
+export function addNewDuckIdToFeed (duckId) {
   return {
     type: ADD_NEW_DUCK_ID_TO_FEED,
     duckId,
@@ -42,21 +42,21 @@ export function resetNewDucksAvailable () {
   }
 }
 
-export function setAndHandleFeedListeners(){
-  let initialFetch = true;
-  return function(dispatch, getState ) {
-    if(getState().listeners.feed == true){
-      return 
+export function setAndHandleFeedListeners () {
+  let initialFetch = true
+  return function (dispatch, getState) {
+    if (getState().listeners.feed === true) {
+      return
     }
     dispatch(addListener('feed'))
     dispatch(settingFeedListener())
-    listenToFeed(({feed, sortedIds})=> {
+    listenToFeed(({feed, sortedIds}) => {
       dispatch(addMultipleDucks(feed))
-      initialFetch ===true
-      ?dispatch(settingFeedListenerSuccess(sortedIds))
-      :dispatch(addNewDuckIdToFeed(sortedIds[0]))
+      initialFetch === true
+        ? dispatch(settingFeedListenerSuccess(sortedIds))
+        : dispatch(addNewDuckIdToFeed(sortedIds[0]))
 
-      initialFetch= false
+      initialFetch = false
     }, (error) => dispatch(settingFeedListenerError(error)))
   }
 }

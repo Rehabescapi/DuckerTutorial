@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import { Navigation } from 'components'
 import { formatUserInfo } from 'helpers/utils'
 import * as userActionCreators from 'redux/modules/users'
+import * as usersLikesActionCreators from 'redux/modules/usersLikes'
 import { container, innerContainer } from './styles.css'
 import { firebaseAuth } from 'config/constants'
 
@@ -40,9 +41,11 @@ class MainContainer extends Component {
 }
 
 MainContainer.propTypes = {
-  childred: PropTypes.any,
+  children: PropTypes.any,
   isAuthed: PropTypes.bool.isRequired,
   authUser: PropTypes.func.isRequired,
+  fetchingUserSuccess: PropTypes.func.isRequired,
+  setUsersLikes: PropTypes.func.isRequired,
 
 }
 MainContainer.contextTypes =
@@ -52,5 +55,5 @@ MainContainer.contextTypes =
 // export default MainContainer
 export default withRouter(connect(
   (state) => ({isAuthed: state.users.isAuthed, isFetching: state.users.isFetching}),
-  (dispatch) => bindActionCreators({...userActionCreators}, dispatch)
+  (dispatch) => bindActionCreators({...userActionCreators, ...usersLikesActionCreators}, dispatch)
 )(MainContainer))

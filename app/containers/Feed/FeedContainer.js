@@ -5,44 +5,46 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as feedActionCreators from 'redux/modules/feed'
 class FeedContainer extends Component {
-    componentDidMount (){
-     this.props.setAndHandleFeedListeners()
-   }
-  
+  componentDidMount () {
+    this.props.setAndHandleFeedListeners()
+  }
+
   render () {
     return (
       <Feed
-      duckIds = {this.props.duckIds}
-      newDucksAvailable = {this.props.newDucksAvailable}
-      error= {this.props.error}
-      isFetching= { this.props.isFetching}
-      resetNewDucksAvailable={this.props.resetNewDucksAvailable}
-       />
+        duckIds = {this.props.duckIds}
+        newDucksAvailable = {this.props.newDucksAvailable}
+        error= {this.props.error}
+        isFetching= {this.props.isFetching}
+        resetNewDucksAvailable={this.props.resetNewDucksAvailable}/>
     )
   }
 }
 
 FeedContainer.propTypes = {
-  duckIds : PropTypes.array.isRequired,
-  newDucksAvailable : PropTypes.bool.isRequired,
-  error : PropTypes.string.isRequired,
-  isFetching : PropTypes.bool.isRequired,
+  duckIds: PropTypes.array.isRequired,
+  newDucksAvailable: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   setAndHandleFeedListeners: PropTypes.func.isRequired,
-  resetNewDucksAvailable : PropTypes.func.isRequired,
+  resetNewDucksAvailable: PropTypes.func.isRequired,
 }
 
+function mapStateToProps ({feed}) {
 
-function mapStateToProps({feed}){
-  const { newDucksAvailable , error , isFetching , duckIds} = feed;
+  const { newDucksAvailable, error, isFetching, duckIds } = feed
   return {
     newDucksAvailable,
     error,
     isFetching,
-    duckIds
+    duckIds,
   }
 }
 
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators(feedActionCreators, dispatch)
+}
 
 export default connect(mapStateToProps,
-(dispatch)=> bindActionCreators(feedActionCreators, dispatch))
+  mapDispatchToProps)
 (FeedContainer)

@@ -1,4 +1,4 @@
-import { saveDuck } from 'helpers/api'
+import { saveDuck, fetchDuck } from 'helpers/api'
 import { closeModal } from './modal'
 import { addSingleUsersDuck } from './usersDucks'
 
@@ -9,13 +9,13 @@ const ADD_DUCK = 'ADD_DUCK'
 const ADD_MULTIPLE_DUCKS = 'ADD_MULTIPLE_DUCKS'
 const REMOVE_FETCHING = 'REMOVE_FETCHING'
 
-function fetchingDuck () {
+export function fetchingDuck () {
   return {
     type: FETCHING_DUCK,
   }
 }
 
-function fetchingDuckError (error) {
+function fetchingDuckFailure (error) {
   console.warn(error)
   return {
     type: FETCHING_DUCK_ERROR,
@@ -30,7 +30,7 @@ function fetchingDuckSuccess (duck) {
   }
 }
 
-function removeFetching () {
+export function removeFetching () {
   return {
     type: REMOVE_FETCHING,
   }
@@ -54,14 +54,23 @@ export function duckFanout (duck) {
   return function (dispatch, getState) {
     const uid = getState().users.authedId
     saveDuck(duck)
-      .then((duckWithID) => {
-        dispatch(addDuck(duckWithID))
+      .then((duckWithId) => {
+        dispatch(addDuck(duckWithId))
         dispatch(closeModal())
-        dispatch(addSingleUsersDuck(uid, duckWithID.duckId))
+        dispatch(addSingleUsersDuck(uid, duckWithId.duckId))
       })
       .catch((err) => {
         console.warn('Error in duckFanout', err)
       })
+  }
+}
+
+export function fetchAndHandleDuck (duckId) {
+  return function (dispatch) {
+    dispatch(fetchingDuck())
+    fetchDuck(duckId)
+      .then((duck) => dispatch(fetchingDuckSuccess(duck)))
+      .catch((error) => dispatch(fetchingDuckFailure(error)))
   }
 }
 

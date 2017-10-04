@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {Component} from 'react'
 import {Authenticate} from 'components'
 import PropTypes from 'prop-types'
 // import auth from 'helpers/auth'
@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as userActionCreators from 'redux/modules/users'
 
-class AuthenticateContainer extends React.Component {
+class AuthenticateContainer extends Component {
   constructor (props) {
     super(props)
     this.handleAuth = this.handleAuth.bind(this)
@@ -48,4 +48,7 @@ AuthenticateContainer.contextTypes = {
   router: PropTypes.object.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthenticateContainer)
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(AuthenticateContainer)

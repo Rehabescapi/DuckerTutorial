@@ -1,5 +1,5 @@
 import {
-  fetchUserLikes, saveToUserLikes, deleteFromUserLikes,
+  fetchUsersLikes, saveToUsersLikes, deleteFromUsersLikes,
   incrementNumberOfLikes, decrementNumberOfLikes,
 } from 'helpers/api'
 
@@ -29,7 +29,7 @@ function fetchingLikes () {
   }
 }
 
-function fetchLikesError (error) {
+function fetchingLikesFailure (error) {
   console.warn(error)
   return {
     type: FETCHING_LIKES_ERROR,
@@ -44,9 +44,9 @@ function fetchingLikesSuccess (likes) {
   }
 }
 
-export function addAndHandleLike (duickId, e) {
+export function addAndHandleLike (duckId, e) {
   e.stopPropagation()
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     dispatch(addLike(duckId))
 
     const uid = getState().users.authedId
@@ -54,41 +54,41 @@ export function addAndHandleLike (duickId, e) {
       saveToUsersLikes(uid, duckId),
       incrementNumberOfLikes(duckId),
     ])
-    .catch((error) =>{
-      console.warn(error)
-      dispatch(removeLike(duckId))
-    })
+      .catch((error) => {
+        console.warn(error)
+        dispatch(removeLike(duckId))
+      })
   }
 }
-export function handleDeleteLike (duckId, e){
+export function handleDeleteLike (duckId, e) {
   e.stopPropagation()
-  return function(dispatch, getState){
+  return function (dispatch, getState) {
     dispatch(removeLike(duckId))
 
     const uid = getState().users.authedId
     Promise.all([
-      deleteFromUserLikes(uid, duckId),
+      deleteFromUsersLikes(uid, duckId),
       decrementNumberOfLikes(duckId),
-    ]).catch((error)=>{
+    ]).catch((error) => {
       console.warn(error)
       dispatch(addLike(duckId))
     })
   }
 }
-
+export function setUsersLikes () {
+  return function (dispatch, getState) {
+    const uid = getState().users.authedId
+    dispatch(fetchingLikes)
+    fetchUsersLikes(uid)
+      .then((likes) => dispatch(fetchingLikesSuccess(likes)))
+      .catch((error) => dispatch(fetchingLikesFailure(error)))
+  }
+}
 
 const initialState = {
   isFetching: false,
   error: '',
 }
-
-export function usersLikesActions(){
-  return {
-    type: FETCHING_LIKES_SUCCESS,
-    likes,
-  }
-}
-
 
 export default function usersLikes (state = initialState, action) {
   const type = action.type

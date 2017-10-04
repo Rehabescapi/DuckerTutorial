@@ -1,3 +1,5 @@
+
+
 export function formatUserInfo (name, avatar, uid) {
   return {
     name,
@@ -16,7 +18,7 @@ export function formatDuck (text, {avatar, name, uid}) {
   }
 }
 
-export function formatTimestamp (timestamp){
+export function formatTimestamp (timestamp) {
   const date = new Date(timestamp)
   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
 }

@@ -17,7 +17,6 @@ const store = createStore(combineReducers(reducers), compose(
 function checkAuth (component) {
   return restricted(component, store)
 }
-const isAuthed = checkIfAuthed(store)
 
 ReactDOM.render(
   <Provider store={store}>
