@@ -12,9 +12,6 @@ User.propTypes = {
   duckIds: PropTypes.array.isRequired,
 }
 
-
-
-
 export default function User (props) {
   return (
     props.noUser === true
@@ -38,4 +35,3 @@ export default function User (props) {
       </div>
   )
 }
-

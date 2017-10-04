@@ -11,9 +11,10 @@ export default function getRoutes (checkAuth) {
           <Route exact={true} path='/' component={checkAuth(HomeContainer)} />
           <Route path='/auth' component={checkAuth(AuthenticateContainer)} />
           <Route path='/feed' component={checkAuth(FeedContainer)} />
+          <Route path='/duck-details/:duckId' component = {checkAuth(DuckDetailsContainer)}/>
           <Route path='/logout' component = {LogoutContainer} />
           <Route path='/:uid' component = {checkAuth(UserContainer)}/>
-          <Route path='/:duckId' component = {checkAuth(UserContainer)}/>
+
           <Route component={NoMatch}/>
         </Switch>
       </MainContainer>

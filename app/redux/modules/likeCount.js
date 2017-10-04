@@ -30,12 +30,11 @@ export function initLikeFetch (duckId) {
     dispatch(fetchingCount())
 
     fetchLikeCount(duckId)
-    .then((count) => 
-  dispatch(fetchingCountSuccess(duckId, count)))
-  .catch((error) => dispatch(fetchingCountError(error)))
+      .then((count) =>
+        dispatch(fetchingCountSuccess(duckId, count)))
+      .catch((error) => dispatch(fetchingCountError(error)))
   }
 }
-
 
 function count (state = 0, action) {
   switch (action.type) {

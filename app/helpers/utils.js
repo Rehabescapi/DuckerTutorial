@@ -18,6 +18,17 @@ export function formatDuck (text, {avatar, name, uid}) {
   }
 }
 
+
+export function formatReply({ name, uid , avatar }, reply){
+  return {
+    name, 
+    reply, 
+    uid,
+    timestamp: Date.now(),
+    avatar
+  }
+}
+
 export function formatTimestamp (timestamp) {
   const date = new Date(timestamp)
   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
