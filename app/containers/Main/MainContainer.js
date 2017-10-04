@@ -19,7 +19,7 @@ class MainContainer extends Component {
         formatUserInfo(userData.displayName, userData.photoURL, userData.uid)
         this.props.authUser(user.uid)
         this.props.fetchingUserSuccess(user.uid, userInfo, Date.now())
-
+        this.props.setUsersLikes()
         if (this.props.location.pathname === '/feed') {
           this.context.router.history.replace('feed')
         }

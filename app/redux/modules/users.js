@@ -1,6 +1,6 @@
 import auth, {logout, saveUser} from 'helpers/auth'
 import { formatUserInfo } from 'helpers/utils'
-import {fetchUser} from 'helpers/api'
+import { fetchUser } from 'helpers/api'
 
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
