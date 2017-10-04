@@ -23,19 +23,14 @@ export function formatTimestamp (timestamp) {
   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
 }
 
-
-function getMilliseconds(timestamp)
-{
-  return new Date.getTime() - new Date(timestamp).getTime()
+function getMilliseconds (timestamp) {
+  return new Date().getTime() - new Date(timestamp).getTime()
 }
 
-
-export function staleUsers (timestamp)
-{
-  return getMilliseconds(timestamp) - userExpirationLength
+export function staleUsers (timestamp) {
+  return getMilliseconds(timestamp) > usersExpirationLength
 }
 
-export function staleDuck(timestamp){
-  return getMilliseconds(timestamp) - usersDucksExpirationLength
-
+export function staleDucks (timestamp) {
+  return getMilliseconds(timestamp) > usersDucksExpirationLength
 }

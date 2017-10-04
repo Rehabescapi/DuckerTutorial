@@ -32,7 +32,6 @@ class DuckContainer extends Component {
   }
 }
 
-
 DuckContainer.contextTypes = {
   router: PropTypes.object.isRequired,
 }
@@ -49,11 +48,10 @@ DuckContainer.propTypes = {
 
 DuckContainer.defaultProps = {
   hideLikeCount: true,
-  hideReplyBtn: false
+  hideReplyBtn: false,
 }
 
 function mapStateToProps ({ducks, likeCount, usersLikes}, props) {
-  
   return {
     duck: ducks[props.duckId],
     hideLikeCount: props.hideLikeCount,
@@ -64,7 +62,6 @@ function mapStateToProps ({ducks, likeCount, usersLikes}, props) {
 }
 
 function mapDispathToProps (dispatch) {
- 
   return bindActionCreators(usersLikesActions, dispatch)
 }
 

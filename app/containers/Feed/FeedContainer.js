@@ -31,7 +31,6 @@ FeedContainer.propTypes = {
 }
 
 function mapStateToProps ({feed}) {
-
   const { newDucksAvailable, error, isFetching, duckIds } = feed
   return {
     newDucksAvailable,

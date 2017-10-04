@@ -1,4 +1,4 @@
-import React , {Component} from 'react'
+import React, {Component} from 'react'
 import {Authenticate} from 'components'
 import PropTypes from 'prop-types'
 // import auth from 'helpers/auth'
@@ -49,6 +49,6 @@ AuthenticateContainer.contextTypes = {
 }
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
 )(AuthenticateContainer)
