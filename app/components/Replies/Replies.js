@@ -9,16 +9,16 @@ Reply.propTypes = {
     comment : PropTypes.object.isRequired,
 }
 
-function Reply ({commnet}){
+function Reply ({comment}){
     return (
         <div className={replyContainer}>
-            <img srv={commnet.avatar} alt={comment.name} className={avatar}
+            <img src={comment.avatar} alt={comment.name} className={avatar}
             />
             <div> 
-                <div className={author}>{commnet.name}</div>
-                <div className={cushion}>{formatTimestamp(comment.timestamp)}>
+                <div className={author}>{comment.name}</div>
+                <div className={cushion}>{formatTimestamp(comment.timestamp)}
                     </div>
-                    <div className={cushion}> {commnet.reply}></div>
+                    <div className={cushion}> {comment.reply}</div>
             </div>
         </div>
 

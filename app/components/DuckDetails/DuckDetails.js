@@ -18,7 +18,7 @@ Reply.propTypes = {
 function Reply ({submit}) {
   const handleSubmit = (e) => {
     if( Reply.ref.value.length ===0) return 
-    submit(reply.ref.value, 3)
+    submit(Reply.ref.value, 3)
     Reply.ref.value=''
   }
 

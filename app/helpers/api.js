@@ -84,7 +84,7 @@ export function fetchLikeCount (duckId) {
 
 
 export function postReply (duckId, reply ) {
-  const replyId= ref.child(`replies/${duckId}`).push().key()
+  const replyId= ref.child(`replies/${duckId}`).push().key
   const replyWithId= {...reply, replyId}
   const replyPromise = ref.child(`replies/${duckId}/${replyId}`).set (replyWithId)
   return {
