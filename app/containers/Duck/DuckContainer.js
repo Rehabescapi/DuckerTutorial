@@ -15,11 +15,12 @@ class DuckContainer extends Component {
   }
   goToProfile (e) {
     e.stopPropagation()
-    this.context.router.history.push(`${this.props.duck.uid}`)
+    this.context.router.history.push(`${this.props.duck.get('uid')}`)
   }
   handleClick (e) {
+    console.log(this.props.duck.get('duckId'))
     e.stopPropagation()
-    this.context.router.history.push(`/duck-details/${this.props.duck.duckId}`)
+    this.context.router.history.push('/duck-details/' +this.props.duck.get('duckId'))
   }
 
   render () {
@@ -52,8 +53,8 @@ DuckContainer.defaultProps = {
 }
 
 function mapStateToProps ({ducks, likeCount, usersLikes}, props) {
-  return {
-    duck: ducks[props.duckId],
+   return {
+    duck: ducks.get(props.duckId),
     hideLikeCount: props.hideLikeCount,
     hideReplyBtn: props.hideReplyBtn,
     isLiked: usersLikes[props.duckId] === true,
